@@ -19,9 +19,9 @@ namespace Speech
                 Console.WriteLine(
                         "No Kinect sensors are attached to this computer or none of the ones that are\n" +
                         "attached are \"Connected\".\n" +
-                        "Attach the KinectSensor and restart this application.\n" +
-                        "If that doesn't work run SkeletonViewer-WPF to better understand the Status of\n" +
-                        "the Kinect sensors.\n\n" +
+                        //"Attach the KinectSensor and restart this application.\n" +
+                        //"If that doesn't work run SkeletonViewer-WPF to better understand the Status of\n" +
+                        //"the Kinect sensors.\n\n" +
                         "Press any key to continue.\n");
 
                 // Give a chance for user to see console output before it is dismissed
