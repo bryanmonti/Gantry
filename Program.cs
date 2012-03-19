@@ -1,14 +1,3 @@
-//------------------------------------------------------------------------------
-// <copyright file="Program.cs" company="Microsoft">
-//     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-// This module provides sample code used to demonstrate the use
-// of the KinectAudioSource for speech recognition
-
-// IMPORTANT: This sample requires the Speech Platform SDK (v11) to be installed on the developer workstation
-
 namespace Speech
 {
     using System;
