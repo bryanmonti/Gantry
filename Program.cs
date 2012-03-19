@@ -40,11 +40,11 @@ namespace Speech
 
             if (GetKinectRecognizer() == null)
             {
-                Console.WriteLine("Could not find Kinect speech recognizer. Please refer to the sample requirements.");
+                Console.WriteLine("Could not find Kinect speech recognizer! You should probably install the Audio SDK for Kinect (released by Microsoft"); //Put a download link here to get the audio sdk from microsoft for kinect
                 return;
             }
 
-            Console.WriteLine("Using: {0}", GetKinectRecognizer().Name);
+            Console.WriteLine("Using: {0}", GetKinectRecognizer().Name); //TAKE A LOOK AT PRINTED CODE
 
             // NOTE: Need to wait 4 seconds for device to be ready right after initialization
             int wait = 4;
@@ -87,11 +87,11 @@ namespace Speech
                     sre.SetInputToAudioStream(
                         s, new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
 
-                    Console.WriteLine("Recognizing speech. Say: 'red', 'green', purple, orange or 'blue'. Press ENTER to stop");
+                    Console.WriteLine("Recognizing speech. Say: 'red', 'green', purple, orange or 'blue'. Press ENTER to quit");
 
                     sre.RecognizeAsync(RecognizeMode.Multiple);
                     Console.ReadLine();
-                    Console.WriteLine("Stopping recognizer ...");
+                    Console.WriteLine("Stopping recognizer...");
                     sre.RecognizeAsyncStop();                       
                 }
             }
@@ -112,7 +112,7 @@ namespace Speech
 
         private static void SreSpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
         {
-            Console.WriteLine("\nSpeech Rejected");
+            Console.WriteLine("\nSpeech not recognized");
             if (e.Result != null)
             {
                 DumpRecordedAudio(e.Result.Audio);
@@ -133,7 +133,7 @@ namespace Speech
             else
             {
                 Console.WriteLine("\nSpeech Recognized but confidence was too low: \t{0}", e.Result.Confidence);
-                DumpRecordedAudio(e.Result.Audio);
+                DumpRecordedAudio(e.Result.Audio); //deletes extra audio after being analyzed
             }
         }
 
