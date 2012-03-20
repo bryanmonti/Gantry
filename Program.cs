@@ -1,5 +1,6 @@
 namespace Speech
 {
+    #region Using
     using System;
     using System.IO;
     using System.Linq;
@@ -7,7 +8,7 @@ namespace Speech
     using Microsoft.Kinect;
     using Microsoft.Speech.AudioFormat;
     using Microsoft.Speech.Recognition;
-
+    #endregion
     public class Program
     {
         public static void Main(string[] args)
@@ -40,7 +41,7 @@ namespace Speech
 
             if (GetKinectRecognizer() == null)
             {
-                Console.WriteLine("Could not find Kinect speech recognizer! You should probably install the Audio SDK for Kinect (released by Microsoft"); //Put a download link here to get the audio sdk from microsoft for kinect
+                Console.WriteLine("Could not find Kinect speech recognizer! You should probably install the Audio SDK for Kinect (released by Microsoft)"); //Put a download link here to get the audio sdk from microsoft for kinect
                 return;
             }
 
@@ -50,24 +51,22 @@ namespace Speech
             int wait = 4;
             while (wait > 0)
             {
-                Console.Write("Device will be ready for speech recognition in {0} second(s).\r", wait--);
+                Console.Write("Device will be ready for speech recognition in {0} second(s).\r", wait--);//the slash r allows it to overwrite last printed statement
                 Thread.Sleep(1000);
             }
             
             using (var sre = new SpeechRecognitionEngine(GetKinectRecognizer().Id))
             {                
-                var colors = new Choices();
-                colors.Add("red");
-                colors.Add("green");
-                colors.Add("blue");
-                colors.Add("purple");
-                colors.Add("orange");
+                var colors = new Choices(); //Change this variable from colors to Commands
 
-                colors.Add("Hi");
-                colors.Add("Nope");
-                colors.Add("wake up");
-                colors.Add("egg salad");
-                colors.Add("derp");
+                colors.Add("Dim plus far window shades"); 
+                colors.Add("Dim minus far window shades");
+                colors.Add("Dim plus computer window shades");
+                colors.Add("Dim minus computer window shades");
+                colors.Add("Open far window shades");
+                colors.Add("Close far window shades");
+                colors.Add("Close computer window shades");
+                colors.Add("Open computer window shades");
 
                 var gb = new GrammarBuilder { Culture = GetKinectRecognizer().Culture };
 
@@ -87,7 +86,24 @@ namespace Speech
                     sre.SetInputToAudioStream(
                         s, new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
 
-                    Console.WriteLine("Recognizing speech. Say: 'red', 'green', purple, orange or 'blue'. Press ENTER to quit");
+                    Console.WriteLine(" ");
+                    Console.WriteLine("What would you like me to do?\n" +
+                                        "  \n" +
+                                        "1) Dim Plus Far Window Shades\n" +
+                                        "  \n" +
+                                        "2) Dim Minus Far Window Shades\n" +
+                                        "  \n" +
+                                        "3) Dim Plus Computer Window Shades\n" +
+                                        "  \n" +
+                                        "4) Dim Minus Computer Window Shades\n" +
+                                        "  \n" +
+                                        "5) Open Far Window Shades\n" +
+                                        "  \n" +
+                                        "6) Close Far Window Shades\n" +
+                                        "  \n" +
+                                        "7) Open Computer Window Shades\n" +
+                                        "  \n" +
+                                        "8) Close Computer Window Shades\n");
 
                     sre.RecognizeAsync(RecognizeMode.Multiple);
                     Console.ReadLine();
