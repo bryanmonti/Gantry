@@ -1,25 +1,45 @@
 ########### Gantry Documentation ###########
 Author/ Designer/ Creator: Bryan Monti
+Contact: bsmonti@gmail.com (title the email with "Gantry")
 Date Started: 3/17/12 (March 17th, 2012)
 Date Completed: N/A
 Description:
 Files:
-* Arduino_Serial.cs
+* Arduino_Serial.cs (Converts text to serial data for Arduino Mega 2560)
 * Program.cs (Main program)
-* README.txt
+* README (this file, duh)
 
-Languages Used:
+Hardware:
+* Xbox 360 Kinect
+* A computer
+* Arduino Mega 2560
+* 2 x Makerbot v2.3 Stepper Drivers
+* 2 x NEMA 23 Stepper Motors (diff torques)
+* Couple of Servos
+
+Languages:
 * Arduino (C++)
 * C# (C Sharp)
 * Python (In later revisions)
 
 Objectives:
-1. 
-2. 
-3. 
+1. Speech Recognition (Completed - March 19th, 2012: 10:16PM)
+2. Speech to text to serial data (Work in progress)
+3. Serial Data interpreted by Arduino and processed (Work in progress)
 
-TODO:
+TODO: Merge Arduino_Serial and Main Program (Speech => Text => Serial => Arduino => ??? (interface?) => Profit)
 
-How it all works and why:
+Random notes: Arduino should have a feature where it looks for current state of something (whether or not the
+shades have been dimmed or not, or whether the shades are open or closed).
 
+List of commands and definitions:
+1. Dim Plus Far Window Shades - 
+2. Dim Minus Far Window Shades
+3. Dim Plus Computer Window Shades
+4. Dim Minus Computer Window Shades
+5. Open Far Window Shades
+6. Close Far Window Shades
+7. Open Computer Window Shades
+8. Close Computer Window Shades
 
+How it all works and why: Yeah, give me a bit. Still waiting on Arduino board to come in the mail.
