@@ -27,7 +27,7 @@ Objectives:
 2. Speech to text to serial data (Work in progress)
 3. Serial Data interpreted by Arduino and processed (Work in progress)
 
-TODO: Merge Arduino_Serial and Main Program (Speech => Text => Serial => Arduino => ??? (interface?) => Profit)
+TODO: Merge Arduino_Serial and Program (Speech => Text => Serial => Arduino => ??? (interface?) => Profit)
 
 Random notes: Arduino should have a feature where it looks for current state of something (whether or not the
 shades have been dimmed or not, or whether the shades are open or closed).
