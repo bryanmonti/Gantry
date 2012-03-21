@@ -2,19 +2,30 @@ namespace Speech
 {
     #region Using
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using System.Threading;
     using Microsoft.Kinect;
     using Microsoft.Speech.AudioFormat;
     using Microsoft.Speech.Recognition;
     #endregion
+
     public class Program
     {
+        public static SerialPort port;
         public static void Main(string[] args)
         {
+            int baud;
+            string name;
+
+            #region Kinect Sensor
             // Obtain a KinectSensor if any are available
             KinectSensor sensor = (from sensorToCheck in KinectSensor.KinectSensors where sensorToCheck.Status == KinectStatus.Connected select sensorToCheck).FirstOrDefault();
+            #endregion
+
+            #region Kinect Checking
             if (sensor == null)
             {
                 Console.WriteLine(
@@ -29,6 +40,7 @@ namespace Speech
                 Console.ReadKey(true);
                 return;
             }
+            #endregion
 
             sensor.Start();
 
@@ -38,12 +50,13 @@ namespace Speech
             source.AutomaticGainControlEnabled = false; // Important to turn this off for speech recognition
 
             //RecognizerInfo ri = GetKinectRecognizer();
-
+            #region Check for Audio SDK
             if (GetKinectRecognizer() == null)
             {
                 Console.WriteLine("Could not find Kinect speech recognizer! You should probably install the Audio SDK for Kinect (released by Microsoft)"); //Put a download link here to get the audio sdk from microsoft for kinect
                 return;
             }
+            #endregion
 
             Console.WriteLine("Using: {0}", GetKinectRecognizer().Name); //TAKE A LOOK AT PRINTED CODE
 
