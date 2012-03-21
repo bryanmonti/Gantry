@@ -14,7 +14,7 @@ namespace Speech
 
     public class Program
     {
-        public static SerialPort port;
+        //public static SerialPort port;
         public static void Main(string[] args)
         {
             int baud;
@@ -58,11 +58,8 @@ namespace Speech
             }
             #endregion
 
-            Console.WriteLine("Using: {0}", GetKinectRecognizer().Name); //TAKE A LOOK AT PRINTED CODE
-
-            // NOTE: Need to wait 4 seconds for device to be ready right after initialization
-            int wait = 4;
-            while (wait > 0)
+            int wait = 2;
+            while (wait > -1)//stops printing at 0 seconds
             {
                 Console.Write("Device will be ready for speech recognition in {0} second(s).\r", wait--);//the slash r allows it to overwrite last printed statement
                 Thread.Sleep(1000);
@@ -139,12 +136,12 @@ namespace Speech
             return SpeechRecognitionEngine.InstalledRecognizers().Where(matchingFunc).FirstOrDefault();
         }
 
-        private static void SreSpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
+        private static void SreSpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs audio)
         {
             Console.WriteLine("\nSpeech not recognized");
-            if (e.Result != null)
+            if (audio.Result != null)
             {
-                DumpRecordedAudio(e.Result.Audio);
+                DumpRecordedAudio(audio.Result.Audio);
             }
         }
 
