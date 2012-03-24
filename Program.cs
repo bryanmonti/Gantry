@@ -4,6 +4,7 @@ namespace Speech
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.IO.Ports;
     using System.Linq;
     using System.Text;
     using System.Threading;
@@ -14,13 +15,13 @@ namespace Speech
 
     public class Program
     {
-        //public static SerialPort port;
+        public static SerialPort port;
         public static void Main(string[] args)
         {
             int baud;
             string name;
 
-            #region Kinect Sensor
+            #region Kinect Finding
             // Obtain a KinectSensor if any are available
             KinectSensor sensor = (from sensorToCheck in KinectSensor.KinectSensors where sensorToCheck.Status == KinectStatus.Connected select sensorToCheck).FirstOrDefault();
             #endregion
@@ -42,11 +43,15 @@ namespace Speech
             }
             #endregion
 
+            #region Port Checking
+            SerialPort.GetPortNames().Count(); //set this as a name somewhere
+            #endregion
+
             sensor.Start();
 
             // Obtain the KinectAudioSource to do audio capture
             KinectAudioSource source = sensor.AudioSource;
-            source.EchoCancellationMode = EchoCancellationMode.None; // No AEC for this sample
+            source.EchoCancellationMode = EchoCancellationMode.None; // No AEC :(
             source.AutomaticGainControlEnabled = false; // Important to turn this off for speech recognition
 
             //RecognizerInfo ri = GetKinectRecognizer();
@@ -61,7 +66,7 @@ namespace Speech
             int wait = 2;
             while (wait > -1)//stops printing at 0 seconds
             {
-                Console.Write("Device will be ready for speech recognition in {0} second(s).\r", wait--);//the slash r allows it to overwrite last printed statement
+                Console.Write("Device will be ready for speech recognition in {0} second(s).\r", wait--);//overwrite last printed statement
                 Thread.Sleep(1000);
             }
             
@@ -117,7 +122,7 @@ namespace Speech
 
                     sre.RecognizeAsync(RecognizeMode.Multiple);
                     Console.ReadLine();
-                    Console.WriteLine("Stopping recognizer...");
+                    Console.WriteLine("Stopping everything...gimmie a sec");
                     sre.RecognizeAsyncStop();                       
                 }
             }
@@ -183,5 +188,7 @@ namespace Speech
                 audio.WriteToWaveStream(file);
             }
         }
+
+        public static int SerialCount { get; set; }
     }
 }
