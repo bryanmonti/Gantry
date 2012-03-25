@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
 using System.Linq;
-//This program is to replace Arduino_Serial.cs
 namespace Serial
 {
     public class Program
