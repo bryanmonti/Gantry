@@ -6,6 +6,8 @@ namespace Serial
     public class Program
     {
         public static System.IO.Ports.SerialPort port;
+        public static int baud_rate;
+        //public static int s;//User can choose which baud rate from letters
         public static void Main(string[] args)
         {
             int baud;
@@ -36,21 +38,39 @@ namespace Serial
                 // Quit
                 return;
             }
+            
             Console.WriteLine("Port Name:");
             name = Console.ReadLine();
             Console.WriteLine(" ");
             Console.WriteLine("Baud rate:\n" +
-                               "A. 300\n" +
-                               "B. 1200\n" +
-                               "C. 2400\n" +
-                               "D. 4800\n" +
-                               "E. 9600\n" +
-                               "F. 14400\n" +
-                               "G. 19200\n" +
-                               "H. 28800\n" +
-                               "I. 38400\n" +
-                               "J. 57600\n" +
-                               "K. 115200\n");
+                               "1. 300\n" +
+                               "2. 1200\n" +
+                               "3. 2400\n" +
+                               "4. 4800\n" +
+                               "5. 9600\n" +
+                               "6. 14400\n" +
+                               "7. 19200\n" +
+                               "8. 28800\n" +
+                               "9. 38400\n" +
+                               "10. 57600\n" +
+                               "11. 115200\n");
+           /* char A, B, C, D, E, F, G, H, I, J, K = a;
+            switch(baud_rate)
+            {
+                case 1: baud = 300; break;
+                case 2: baud = 1200; break;
+                case 3: baud = 2400; break;
+                case 4: baud = 4800; break;
+                case 5: baud = 9600; break;
+                case 6: baud = 14400; break;
+                case 7: baud = 19200; break;
+                case 8: baud = 28800; break;
+                case 9: baud = 38400; break;
+                case 10: baud = 57600; break;
+                case 11: baud = 115200; break;
+                default: Console.WriteLine("Setting baud rate to 9600 as default\n"); baud = 9600;
+            } */
+
             baud = GetBaudRate();
 
             Console.WriteLine(" ");
