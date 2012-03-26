@@ -9,7 +9,7 @@ void setup() {
 //TODO: Add \n to everything!
 void loop() {
         int counter = 0;
-        digitalWrite(8,LOW);//Enables steppers
+        //digitalWrite(8,LOW);//Enables steppers
         // send data only when you receive data:
         if (Serial.available() > 0) {
                /* // read the incoming byte:
@@ -25,8 +25,11 @@ void loop() {
           Serial.print("A\n");
           Serial.print("Opening Window Shade (or at least trying to)\n");
           digitalWrite(10,HIGH);//Chooses direction (HIGH = forward)
-          while(counter < 27000)
+          digitalWrite(8,LOW);
+          while(counter < 10000)
           {
+            Serial.print(counter);
+            Serial.print("\n");
             counter++;
             digitalWrite(12,HIGH);
             delay(1);
@@ -39,8 +42,11 @@ void loop() {
           Serial.print("B\n");
           Serial.print("Closing Window Shade (or at least trying to)\n");
           digitalWrite(10,LOW);//Chooses direction (LOW = backward)
-          while(counter < 27000)
+          digitalWrite(8,LOW);
+          while(counter < 12800)
           {
+            Serial.print(counter);
+            Serial.print("\n");
             counter++;
             digitalWrite(12,HIGH);
             delay(1);
