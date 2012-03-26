@@ -1,11 +1,15 @@
 int incomingByte = 0;   // for incoming serial data
 
 void setup() {
-        Serial.begin(115200);     // opens serial port, sets data rate to 9600 bps
+        Serial.begin(115200);     // opens serial port, sets data rate to 115200 bps
+        pinMode(12,OUTPUT);
+        pinMode(10,OUTPUT);
+        pinMode(8,OUTPUT); 
 }
-
+//TODO: Add \n to everything!
 void loop() {
-
+        int counter = 0;
+        digitalWrite(8,LOW);//Enables steppers
         // send data only when you receive data:
         if (Serial.available() > 0) {
                /* // read the incoming byte:
@@ -18,11 +22,33 @@ void loop() {
         incomingByte = Serial.read();
         switch(incomingByte){
           case 65:
-          Serial.print("A");
+          Serial.print("A\n");
+          Serial.print("Opening Window Shade (or at least trying to)\n");
+          digitalWrite(10,HIGH);//Chooses direction (HIGH = forward)
+          while(counter < 27000)
+          {
+            counter++;
+            digitalWrite(12,HIGH);
+            delay(1);
+            digitalWrite(12,LOW);
+            delay(1);
+          }
            break;
+           
           case 66:
-          Serial.print("B");
+          Serial.print("B\n");
+          Serial.print("Closing Window Shade (or at least trying to)\n");
+          digitalWrite(10,LOW);//Chooses direction (LOW = backward)
+          while(counter < 27000)
+          {
+            counter++;
+            digitalWrite(12,HIGH);
+            delay(1);
+            digitalWrite(12,LOW);
+            delay(1);
+          }
            break;
+           
           case 67:
           Serial.print("C");
            break;
