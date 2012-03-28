@@ -1,21 +1,20 @@
+#region Using
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Ports;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using Microsoft.Kinect;
+using Microsoft.Speech.AudioFormat;
+using Microsoft.Speech.Recognition;
+#endregion
 namespace Speech
-{
-    #region Using
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.IO.Ports;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using Microsoft.Kinect;
-    using Microsoft.Speech.AudioFormat;
-    using Microsoft.Speech.Recognition;
-    #endregion
-
+{ //Pissing people off with #regions since Microsoft Visual 2008.
     public class Program
     {
-        public static SerialPort port;
+        public static System.IO.Ports.SerialPort port;//try using
         public static void Main(string[] args)
         {
             int baud;
@@ -43,24 +42,67 @@ namespace Speech
             }
             #endregion
 
-            #region Port Checking
-            SerialPort.GetPortNames().Count(); //set this as a name somewhere
+            #region Port Checking + Counting
+            SerialPort.GetPortNames().Count(); //counts available ports (set this as a name somewhere)
             #endregion
 
+            #region Activates Kinect Sensor
             sensor.Start();
+            #endregion
 
-            // Obtain the KinectAudioSource to do audio capture
+            #region Obtains KinectAudioSource
             KinectAudioSource source = sensor.AudioSource;
             source.EchoCancellationMode = EchoCancellationMode.None; // No AEC :(
             source.AutomaticGainControlEnabled = false; // Important to turn this off for speech recognition
+            #endregion
 
-            //RecognizerInfo ri = GetKinectRecognizer();
             #region Check for Audio SDK
             if (GetKinectRecognizer() == null)
             {
                 Console.WriteLine("Could not find Kinect speech recognizer! You should probably install the Audio SDK for Kinect (released by Microsoft)"); //Put a download link here to get the audio sdk from microsoft for kinect
                 return;
             }
+            #endregion
+
+            #region Writes Options
+            Console.WriteLine("Enter your parameters to begin");
+            Console.WriteLine(" ");
+            Console.WriteLine("If no ports are displayed below, please check your connection to the serial device");
+            Console.WriteLine("Available ports:");
+            #endregion
+
+            #region Available Port Printing
+            if (System.IO.Ports.SerialPorts.GetPortNames())
+            {
+                foreach (string p in System.IO.Ports.SerialPort.GetPortNames())
+                {
+                    Console.WriteLine(p);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Ports are available. Press any key to quit!");
+                Console.ReadLine();
+                return; //Quit
+            }
+            #endregion
+
+            #region Gets Port Name + Baud
+            Console.WriteLine("Port Name:");
+            name = Console.ReadLine();
+            Console.WriteLine(" ");
+            Console.WriteLine("Baud rate:\n" +
+                               "1. 300\n" +
+                               "2. 1200\n" +
+                               "3. 2400\n" +
+                               "4. 4800\n" +
+                               "5. 9600\n" +
+                               "6. 14400\n" +
+                               "7. 19200\n" +
+                               "8. 28800\n" +
+                               "9. 38400\n" +
+                               "10. 57600\n" +
+                               "11. 115200\n");
             #endregion
 
             int wait = 2;
@@ -72,21 +114,25 @@ namespace Speech
             
             using (var sre = new SpeechRecognitionEngine(GetKinectRecognizer().Id))
             {                
-                var colors = new Choices(); //Change this variable from colors to Commands
+                var commands = new Choices(); //Change this variable from colors to Commands Update: DONE BITCHES
 
-                colors.Add("Dim plus far window shades"); 
-                colors.Add("Dim minus far window shades");
-                colors.Add("Dim plus computer window shades");
-                colors.Add("Dim minus computer window shades");
-                colors.Add("Open far window shades");
-                colors.Add("Close far window shades");
-                colors.Add("Close computer window shades");
-                colors.Add("Open computer window shades");
+                commands.Add("Dim plus far window shades");
+                commands.Add("Dim minus far window shades");
+                commands.Add("Dim plus computer window shades");
+                commands.Add("Dim minus computer window shades");
+                commands.Add("Open far window shades");
+                commands.Add("Close far window shades");
+                commands.Add("Close computer window shades");
+                commands.Add("Open computer window shades");
 
-                var gb = new GrammarBuilder { Culture = GetKinectRecognizer().Culture };
+                //Might have to fix below to one line
+                var gb = new GrammarBuilder
+                { 
+                    Culture = GetKinectRecognizer().Culture
+                };
 
                 // Specify the culture to match the recognizer in case we are running in a different culture.                                 
-                gb.Append(colors);
+                gb.Append(commands);
                                     
                 // Create the actual Grammar instance, and then load it into the speech recognizer.
                 var g = new Grammar(gb);                    
@@ -160,6 +206,16 @@ namespace Speech
             if (e.Result.Confidence >= 0.7)
             {
                 Console.WriteLine("\nSpeech Recognized: \t{0}\tConfidence:\t{1}", e.Result.Text, e.Result.Confidence);
+                //Add a line here that sends recieved audio to serial
+                if(e.Result.Text == "open far window shades")
+                {
+                    //send to serial
+                }
+                if (e.Result.Text == "WHATEVER ELSE")
+                {
+                    //send to serial
+                }
+                //so on and so fourth
             }
             else
             {
@@ -189,6 +245,6 @@ namespace Speech
             }
         }
 
-        public static int SerialCount { get; set; }
+        //public static int SerialCount { get; set; }
     }
 }

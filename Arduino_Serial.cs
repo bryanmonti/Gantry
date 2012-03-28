@@ -118,7 +118,7 @@ namespace Serial
             }
         }
 
-        public static int SerialCount { get; set; }
+        //public static int SerialCount { get; set; }
     }
 }
 
