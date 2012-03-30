@@ -1,49 +1,39 @@
-int incomingByte = 0;   // for incoming serial data
+#include <SoftwareSerial.h>
+
+int incomingByte = 0;   // for incoming serial data, supposed ot be 0
 
 void setup() {
         Serial.begin(115200);     // opens serial port, sets data rate to 115200 bps
-        for(int pin = 8; pin < 13; pin = pin + 2)//works but you have to give it a 10 second head start
+        /*for(int pin = 8; pin < 13; pin = pin += 2)//works but you have to give it a 10 second head start
         {
           pinMode(pin,OUTPUT);
           Serial.print(pin);
           Serial.print("\n");
-        }
-        /*
+        }*/
+        
         pinMode(12,OUTPUT);
         pinMode(10,OUTPUT);
         pinMode(8,OUTPUT); 
-*/}
+}
 
-int window_position; //0 is closed and 1 is open
+int window_position = 0; //0 is closed and 1 is open
 
-void loop() {
-  //Create option in beginning of program to ask user if window shade is open or closed
-        Serial.print("Before use, make sure shade is in closed position");
+void loop() {//work on something that allows the user to choose whether they want to start in open or closed position
         int counter = 0;
-        if (Serial.available() > 0) {
-           
-        incomingByte = Serial.read();
+                
+      if(Serial.available() > 0) {
         
-        Serial.print("Is your window shade in the up position?\n");
-        Serial.print("UP = Y and DOWN = N\n");
-        if(incomingByte == 89)
-        {
-          window_position = 1;//window shade is open
-        }
-        else if(incomingByte = 78)//
-        {
-         window_position = 0;//window shade is closed
-        }
+        incomingByte = Serial.read();
         
         switch(incomingByte){
           case 65:
-          Serial.print("A\n");
-          Serial.print("Opening Window Shade (or at least trying to)\n");
+          //Serial.print("A\n");
           digitalWrite(10,HIGH);//Chooses direction (HIGH = forward)
           digitalWrite(8,LOW);//Enables steppers
           
           if(window_position == 0)//if window position is closed
           {
+            Serial.print("Opening Window Shade (or at least trying to)\n");
             while(counter < 8500) //open window
             {
               //Serial.print(counter);
@@ -65,12 +55,13 @@ void loop() {
            break;
            
           case 66:
-          Serial.print("B\n");
-          Serial.print("Closing Window Shade (or at least trying to)\n");
+          //Serial.print("B\n");
+          
           digitalWrite(10,LOW);//Chooses direction (LOW = backward)
           digitalWrite(8,LOW);
           if(window_position == 1)//if window is open
           {
+            Serial.print("Closing Window Shade (or at least trying to)\n");
             while(counter < 8500)//close window
             {
               //Serial.print(counter);
@@ -92,7 +83,7 @@ void loop() {
           break;
            
           case 67:
-          Serial.print("C\n");
+          Serial.print("Yeah, I don't do anything yet\n");
            break;
           case 68:
           Serial.print("D\n");
@@ -169,5 +160,6 @@ void loop() {
         }
     }   
 }
+
 
 
