@@ -2,25 +2,46 @@ int incomingByte = 0;   // for incoming serial data
 
 void setup() {
         Serial.begin(115200);     // opens serial port, sets data rate to 115200 bps
+        for(int pin = 8; pin < 13; pin = pin + 2)//works but you have to give it a 10 second head start
+        {
+          pinMode(pin,OUTPUT);
+          Serial.print(pin);
+          Serial.print("\n");
+        }
+        /*
         pinMode(12,OUTPUT);
         pinMode(10,OUTPUT);
         pinMode(8,OUTPUT); 
-}
+*/}
 
-int window_position = 0; //0 is closed and 1 is open
+int window_position; //0 is closed and 1 is open
 
 void loop() {
+  //Create option in beginning of program to ask user if window shade is open or closed
+        Serial.print("Before use, make sure shade is in closed position");
         int counter = 0;
         if (Serial.available() > 0) {
            
         incomingByte = Serial.read();
+        
+        Serial.print("Is your window shade in the up position?\n");
+        Serial.print("UP = Y and DOWN = N\n");
+        if(incomingByte == 89)
+        {
+          window_position = 1;//window shade is open
+        }
+        else if(incomingByte = 78)//
+        {
+         window_position = 0;//window shade is closed
+        }
         
         switch(incomingByte){
           case 65:
           Serial.print("A\n");
           Serial.print("Opening Window Shade (or at least trying to)\n");
           digitalWrite(10,HIGH);//Chooses direction (HIGH = forward)
-          digitalWrite(8,LOW);
+          digitalWrite(8,LOW);//Enables steppers
+          
           if(window_position == 0)//if window position is closed
           {
             while(counter < 8500) //open window
@@ -33,8 +54,13 @@ void loop() {
               digitalWrite(12,LOW);
               delay(1);
             }
+            
             Serial.print("Window in up position! (A)\n");
             window_position = 1;//window is open
+          }
+          else
+          {
+           Serial.print("Yo dawg! I'm in the up position! Can't go up twice!\n"); 
           }
            break;
            
@@ -58,6 +84,11 @@ void loop() {
             window_position = 0;
             Serial.print("Window in closed position! (B)\n");
           }
+          else
+          {
+            Serial.print("Dude, I'm closed. Either open me or leave me alone.\n");  
+          }
+          
           break;
            
           case 67:
@@ -93,12 +124,15 @@ void loop() {
           case 77:
           Serial.print("M\n");
            break;
+          
           case 78:
           Serial.print("N\n");
            break;
+          
           case 79:
           Serial.print("O\n");
            break;
+          
           case 80:
           Serial.print("P\n");
            break;
