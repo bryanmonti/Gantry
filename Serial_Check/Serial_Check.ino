@@ -2,39 +2,65 @@ int incomingByte = 0;   // for incoming serial data
 
 void setup() {
         Serial.begin(115200);     // opens serial port, sets data rate to 115200 bps
+        for(int pin = 8; pin < 13; pin = pin + 2)//works but you have to give it a 10 second head start
+        {
+          pinMode(pin,OUTPUT);
+          Serial.print(pin);
+          Serial.print("\n");
+        }
+        /*
         pinMode(12,OUTPUT);
         pinMode(10,OUTPUT);
         pinMode(8,OUTPUT); 
-}
-//TODO: Add \n to everything!
-void loop() {
-        int counter = 0;
-        //digitalWrite(8,LOW);//Enables steppers
-        // send data only when you receive data:
-        if (Serial.available() > 0) {
-               /* // read the incoming byte:
-                incomingByte = Serial.read();
+*/}
 
-                // say what you got:
-                Serial.print("I received: ");
-                Serial.println(incomingByte);
-        }*/
+int window_position; //0 is closed and 1 is open
+
+void loop() {
+  //Create option in beginning of program to ask user if window shade is open or closed
+        Serial.print("Before use, make sure shade is in closed position");
+        int counter = 0;
+        if (Serial.available() > 0) {
+           
         incomingByte = Serial.read();
+        
+        Serial.print("Is your window shade in the up position?\n");
+        Serial.print("UP = Y and DOWN = N\n");
+        if(incomingByte == 89)
+        {
+          window_position = 1;//window shade is open
+        }
+        else if(incomingByte = 78)//
+        {
+         window_position = 0;//window shade is closed
+        }
+        
         switch(incomingByte){
           case 65:
           Serial.print("A\n");
           Serial.print("Opening Window Shade (or at least trying to)\n");
           digitalWrite(10,HIGH);//Chooses direction (HIGH = forward)
-          digitalWrite(8,LOW);
-          while(counter < 10000)
+          digitalWrite(8,LOW);//Enables steppers
+          
+          if(window_position == 0)//if window position is closed
           {
-            Serial.print(counter);
-            Serial.print("\n");
-            counter++;
-            digitalWrite(12,HIGH);
-            delay(1);
-            digitalWrite(12,LOW);
-            delay(1);
+            while(counter < 8500) //open window
+            {
+              //Serial.print(counter);
+              //Serial.print("\n");
+              counter++;
+              digitalWrite(12,HIGH);
+              delay(1);
+              digitalWrite(12,LOW);
+              delay(1);
+            }
+            
+            Serial.print("Window in up position! (A)\n");
+            window_position = 1;//window is open
+          }
+          else
+          {
+           Serial.print("Yo dawg! I'm in the up position! Can't go up twice!\n"); 
           }
            break;
            
@@ -43,90 +69,105 @@ void loop() {
           Serial.print("Closing Window Shade (or at least trying to)\n");
           digitalWrite(10,LOW);//Chooses direction (LOW = backward)
           digitalWrite(8,LOW);
-          while(counter < 12800)
+          if(window_position == 1)//if window is open
           {
-            Serial.print(counter);
-            Serial.print("\n");
-            counter++;
-            digitalWrite(12,HIGH);
-            delay(1);
-            digitalWrite(12,LOW);
-            delay(1);
+            while(counter < 8500)//close window
+            {
+              //Serial.print(counter);
+              //Serial.print("\n");
+              counter++;
+              digitalWrite(12,HIGH);
+              delay(1);
+              digitalWrite(12,LOW);
+              delay(1);
+            }
+            window_position = 0;
+            Serial.print("Window in closed position! (B)\n");
           }
-           break;
+          else
+          {
+            Serial.print("Dude, I'm closed. Either open me or leave me alone.\n");  
+          }
+          
+          break;
            
           case 67:
-          Serial.print("C");
+          Serial.print("C\n");
            break;
           case 68:
-          Serial.print("D");
+          Serial.print("D\n");
            break;
           case 69:
-          Serial.print("E");
+          Serial.print("E\n");
            break;
           case 70:
-          Serial.print("F");
+          Serial.print("F\n");
            break;
           case 71:
-          Serial.print("G");
+          Serial.print("G\n");
            break;
           case 72:
-          Serial.print("H");
+          Serial.print("H\n");
            break;
           case 73:
-          Serial.print("I");
+          Serial.print("I\n");
            break;
           case 74:
-          Serial.print("J");
+          Serial.print("J\n");
            break;
           case 75:
-          Serial.print("K");
+          Serial.print("K\n");
            break;
           case 76:
-          Serial.print("L");
+          Serial.print("L\n");
            break;
           case 77:
-          Serial.print("M");
+          Serial.print("M\n");
            break;
+          
           case 78:
-          Serial.print("N");
+          Serial.print("N\n");
            break;
+          
           case 79:
-          Serial.print("O");
+          Serial.print("O\n");
            break;
+          
           case 80:
-          Serial.print("P");
+          Serial.print("P\n");
            break;
           case 81:
-          Serial.print("Q");
+          Serial.print("Q\n");
            break;
           case 82:
-          Serial.print("R");
+          Serial.print("R\n");
            break;
           case 83:
-          Serial.print("S");
+          Serial.print("S\n");
            break;
           case 84:
-          Serial.print("T");
+          Serial.print("T\n");
            break;
           case 85:
-          Serial.print("U");
+          Serial.print("U\n");
            break;
           case 86:
-          Serial.print("V");
+          Serial.print("V\n");
            break;
           case 87:
-          Serial.print("W");
+          Serial.print("W\n");
            break;
           case 88:
-          Serial.print("X");
+          Serial.print("X\n");
            break;
           case 89:
-          Serial.print("Y");
+          Serial.print("Y\n");
            break;
           case 90:
-          Serial.print("Z");
+          Serial.print("Z\n");
            break;
         }
     }   
 }
+
+
