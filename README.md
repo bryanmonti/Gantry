@@ -1,4 +1,4 @@
-# Gantry Documentation
+## Gantry Documentation
 ####Author/ Designer/ Creator: Bryan Monti
 ####Contact: bsmonti@gmail.com (title the email with "Gantry")
 ####Date Started: 3/17/12 (March 17th, 2012)
