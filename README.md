@@ -1,10 +1,11 @@
 ## Gantry Documentation
-####Author/ Designer/ Creator: Bryan Monti
-####Contact: bsmonti@gmail.com (title the email with "Gantry")
-####Date Started: 3/17/12 (March 17th, 2012)
-####Date Completed: N/A
+####Project Information
+- Author/ Designer/ Creator: Bryan Monti
+- Contact: bsmonti@gmail.com (title the email with "Gantry")
+- Date Started: 3/17/12 (March 17th, 2012)
+- Date Completed: N/A
 
-Files + Description:
+#### Files:
 * Serial_Check.ino (change this name)
 * Arduino_Serial.cs
 * Program.cs
@@ -12,12 +13,12 @@ Files + Description:
 
 #### Hardware:
 * Xbox 360 Kinect
-* A computer - to run compile and run C# cmd line programs
-* Arduino Mega 2560
-* 1 x Makerbot v2.3 Stepper Driver
-* 1 x NEMA 23 Stepper Motors (diff torques)
+* A computer (Windows only ATM)
+* [Arduino Mega 2560](http://arduino.cc/en/Main/ArduinoBoardMega2560)
+* 1 x [Makerbot v2.3 Stepper Driver](http://reprap.org/wiki/Stepper_Motor_Driver_2.3)
+* 1 x [NEMA 23 Stepper Motors](http://www.sparkfun.com/products/10847)
 
-Languages:
+####Languages:
 * Arduino (C++/C)
 * C#
 * Python - Coming soon (this is for wide support, mult OS's)
