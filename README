@@ -1,31 +1,32 @@
-########### Gantry Documentation ###########
-Author/ Designer/ Creator: Bryan Monti
-Contact: bsmonti@gmail.com (title the email with "Gantry")
-Date Started: 3/17/12 (March 17th, 2012)
-Date Completed: N/A
-Description:
-Files:
-* Arduino_Serial.cs (Converts text to serial data for Arduino Mega 2560)
-* Program.cs (Main program)
-* README (this file, duh)
+# Gantry Documentation
+####Author/ Designer/ Creator: Bryan Monti
+####Contact: bsmonti@gmail.com (title the email with "Gantry")
+####Date Started: 3/17/12 (March 17th, 2012)
+####Date Completed: N/A
 
-Hardware:
+Files + Description:
+* Serial_Check.ino (change this name)
+* Arduino_Serial.cs
+* Program.cs
+* README
+
+#### Hardware:
 * Xbox 360 Kinect
-* A computer
+* A computer - to run compile and run C# cmd line programs
 * Arduino Mega 2560
-* 2 x Makerbot v2.3 Stepper Drivers
-* 2 x NEMA 23 Stepper Motors (diff torques)
-* Couple of Servos
+* 1 x Makerbot v2.3 Stepper Driver
+* 1 x NEMA 23 Stepper Motors (diff torques)
 
 Languages:
-* Arduino (C++)
-* C# (C Sharp)
-* Python (In later revisions)
+* Arduino (C++/C)
+* C#
+* Python - Coming soon (this is for wide support, mult OS's)
 
 Objectives:
 1. Speech Recognition (Completed - March 19th, 2012: 10:16PM)
-2. Speech to text to serial data (Work in progress)
-3. Serial Data interpreted by Arduino and processed (Work in progress)
+2. Text to Serial (Completed 
+3. Speech to text to serial data (Work in progress)
+4. Serial Data interpreted by Arduino and processed (Work in progress; write arduino program)
 
 TODO: Merge Arduino_Serial and Program (Speech => Text => Serial => Arduino => ??? (interface?) => Profit)
 
@@ -42,4 +43,4 @@ List of commands and definitions:
 7. Open Computer Window Shades
 8. Close Computer Window Shades
 
-How it all works and why: Yeah, give me a bit. Still waiting on Arduino board to come in the mail.
+How it all comes together: 
