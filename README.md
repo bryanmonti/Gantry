@@ -46,8 +46,8 @@ List of commands and definitions:
 
 How it all comes together: 
 
-Brought to you by:
-## Aperture Laboratories
+###Brought to you by:
+#### Aperture Laboratories
 <pre>
               .,-:;//;:=,
           . :H@@@MM@M#H/.,+%;,
