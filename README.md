@@ -34,15 +34,15 @@ TODO: Merge Arduino_Serial and Program (Speech => Text => Serial => Arduino => ?
 Random notes: Arduino should have a feature where it looks for current state of something (whether or not the
 shades have been dimmed or not, or whether the shades are open or closed).
 
-List of commands and definitions:
-*1. Dim Plus Far Window Shades - 
-*2. Dim Minus Far Window Shades
-*3. Dim Plus Computer Window Shades
-*4. Dim Minus Computer Window Shades
-*5. Open Far Window Shades
-*6. Close Far Window Shades
-*7. Open Computer Window Shades
-*8. Close Computer Window Shades
+# List of commands and definitions:
+* 1. Dim Plus Far Window Shades - 
+* 2. Dim Minus Far Window Shades
+* 3. Dim Plus Computer Window Shades
+* 4. Dim Minus Computer Window Shades
+* 5. Open Far Window Shades
+* 6. Close Far Window Shades
+* 7. Open Computer Window Shades
+* 8. Close Computer Window Shades
 
 How it all comes together: 
 
