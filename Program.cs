@@ -129,8 +129,10 @@ namespace Speech
 
             using (var sre = new SpeechRecognitionEngine(GetKinectRecognizer().Id))
             {
-                var commands = new Choices(); //Change this variable from colors to Commands Update: DONE BITCHES
-
+                var commands = new Choices();
+                //POSSIBLY: Change commands and all of this shit(being the setup for it, if statments and all) to a simple XML file read my System.Xml.Linq; **http://stackoverflow.com/questions/10762715/c-sharp-parsing-specific-xml**
+                //TODO: Reformat as well as organize this entire thing by subject, etc: Broswer stuff then inside broswre stuff is reddit, fb, gmail. Computer apps = steam, task manager
+                #region commands
                 commands.Add("pull up the weather");
                 commands.Add("Open task manager");
                 commands.Add("Ha gay");
@@ -143,18 +145,20 @@ namespace Speech
                 commands.Add("Play dead mouse radio");
                 commands.Add("Boom");
                 commands.Add("Sleep");
+                commands.Add("Shut down");//Program this
+                commands.Add("Open my email");
+                commands.Add("Open steam");//Also add launching games individually, Program this as well
+                commands.Add("Open facebook");//Program this, also you may have to split the word
+                commands.Add("battle stations");//Program this
+                commands.Add("cable porn");
+                commands.Add("ask science");
+                commands.Add("github");//Program this (Make it open the CL and web interface)
+                commands.Add("Raise Volume");//Setup and increment setting (Even in XML you can set the rate!)
+                #endregion
 
-
-                //Might have to fix below to one line
-                var gb = new GrammarBuilder
-                {
-                    Culture = GetKinectRecognizer().Culture
-                };
-
-                // Specify the culture to match the recognizer in case we are running in a different culture.                                 
+                var gb = new GrammarBuilder { Culture = GetKinectRecognizer().Culture };                                
                 gb.Append(commands);
 
-                // Create the actual Grammar instance, and then load it into the speech recognizer.
                 var g = new Grammar(gb);
 
                 sre.LoadGrammar(g);
@@ -169,7 +173,7 @@ namespace Speech
 
                     Console.WriteLine(" ");
                     Console.WriteLine("What would you like me to do?\n" +
-                                        "  \n" +
+                                       /* "  \n" +
                                         "1) Dim Plus Far Window Shades\n" +
                                         "  \n" +
                                         "2) Dim Minus Far Window Shades\n" +
@@ -184,11 +188,11 @@ namespace Speech
                                         "  \n" +
                                         "7) Open Computer Window Shades\n" +
                                         "  \n" +
-                                        "8) Close Computer Window Shades\n");
+                                        "8) Close Computer Window Shades\n"*/);
 
                     sre.RecognizeAsync(RecognizeMode.Multiple);
                     Console.ReadLine();
-                    Console.WriteLine("Stopping everything...give me a second or two.\n");
+                    Console.WriteLine("Stopping everything...\n");
                     sre.RecognizeAsyncStop();
                 }
             }
@@ -210,11 +214,11 @@ namespace Speech
         private static void SreSpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs audio)
         {
             Console.WriteLine("\nSpeech not recognized");
-            if (audio.Result != null)
+           /* if (audio.Result != null)
             {
                 Console.WriteLine("In that Speech rejected block\n");
                 DumpRecordedAudio(audio.Result.Audio);
-            }
+            }*/
         }
 
         private static void SreSpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
@@ -223,8 +227,8 @@ namespace Speech
         }
 
         private static void SreSpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-        {
-            if (e.Result.Confidence >= 0.7)
+        {//TODO: Change all these if's into "else if" or setup a switch/case system (Faster processing is going to become key
+            if (e.Result.Confidence >= 0.65)
             {
                 Console.WriteLine("\nSpeech Recognized: \t{0}\tConfidence:\t{1}", e.Result.Text, e.Result.Confidence);
                 //Add a line here that sends recieved audio to serial
@@ -239,6 +243,9 @@ namespace Speech
                     chrome.Start();
 
                     port.WriteLine(e.Result.Text);
+                    //Setup a variable and assign the process Id to it and use that Id to close that specific app
+                    //or use MainWindowTitle (A little sketchy
+                    //Session Id could work as well
                     Console.WriteLine("Sent your shit through serial\n");
                 }
                 if (e.Result.Text == "Close chrome")
@@ -248,6 +255,7 @@ namespace Speech
                         try
                         {
                             p.Kill();
+                            //add the iD to close the correct application instead of the entire browser
                             p.WaitForExit(); // possibly with a timeout
                         }
                         catch (Win32Exception winException)
@@ -347,6 +355,25 @@ namespace Speech
                 if(e.Result.Text == "Sleep")
                 {
                     Application.SetSuspendState(PowerState.Suspend, true, true);
+                }
+                if(e.Result.Text == "Open my email")
+                {
+                    Process gmail = new Process();
+
+                    gmail.StartInfo.FileName = "chrome.exe";
+                    gmail.StartInfo.Arguments = "http://www.gmail.com";
+
+                    gmail.Start();
+                }
+                if(e.Result.Text == "Open castle learning")
+                {
+                    Process castle = new Process();
+
+                    castle.StartInfo.FileName = "chrome.exe";
+                    castle.StartInfo.Arguments = "http://www.gmail.com";
+
+                    castle.Start();
+                    Start(castle,wmhs-bmonti,wqf15741,);
                 }
                 //so on and so fourth
             }
